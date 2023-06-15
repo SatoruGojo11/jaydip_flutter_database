@@ -8,8 +8,7 @@ class ShowdataSqlite extends StatefulWidget {
 }
 
 class _ShowdataSqliteState extends State<ShowdataSqlite> {
-
-    
+  // var localdata =
 
   @override
   Widget build(BuildContext context) {

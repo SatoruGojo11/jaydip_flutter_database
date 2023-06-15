@@ -17,7 +17,6 @@ class LoginScreensqlite extends StatefulWidget {
 }
 
 class _LoginScreensqliteState extends State<LoginScreensqlite> {
-
   // List<Map> ldata = <Map>[];
   // late List rolls;
   final _data = GlobalKey<FormState>();
@@ -25,12 +24,6 @@ class _LoginScreensqliteState extends State<LoginScreensqlite> {
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController age = TextEditingController();
-
-
-  var clmid = Localdatabase.clmid;
-  var clmname = Localdatabase.clmname;
-  var clmemail = Localdatabase.clmemail;
-  var clmage = Localdatabase.clmage;
 
   // @override
   // void initState() {
@@ -79,23 +72,8 @@ class _LoginScreensqliteState extends State<LoginScreensqlite> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please Enter Your Customer ID';
-                    }
-                      // else {
-                    //   if (int.tryParse(value) != null) {
-                    //     if (rolls.contains(int.parse(value))) {
-                    //       rolls.remove(int.parse(value));
-                    //       if (rolls.contains(int.parse(value))) {
-                    //         return "Roll No. must be unique !!";
-                    //       } else {
-                    //         return null;
-                    //       }
-                    //     }
-                          else {
-                          return null;
-                //         }
-                //       } else {
-                //         return "Roll No. must be a number !!";
-                //       }
+                    } else {
+                      return null;
                     }
                   },
                 ),
@@ -193,8 +171,7 @@ class _LoginScreensqliteState extends State<LoginScreensqlite> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            ShowdataSqlite(clmid, clmname, clmemail, clmage),
+                        builder: (context) => ShowdataSqlite(),
                       ),
                     );
                   }
@@ -262,7 +239,7 @@ class Localdatabase {
     return await db.update(
       tablename,
       data,
-      where: '${Localdatabase.clmid}',
+      where: Localdatabase.clmid,
       whereArgs: [clmId],
     );
   }
