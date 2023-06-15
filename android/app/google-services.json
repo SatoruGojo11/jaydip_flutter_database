@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1095711491309",
+    "project_id": "jaydipflutter",
+    "storage_bucket": "jaydipflutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095711491309:android:22b587b472be7ca6ddf8e4",
+        "android_client_info": {
+          "package_name": "com.example.jaydip_flutter_database"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1095711491309-9ke528n3k2qncua1a4lgctb0al7i64p4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcSwjY74WLn0SV50S6k-x7cMMm_uYFy2o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1095711491309-9ke528n3k2qncua1a4lgctb0al7i64p4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
