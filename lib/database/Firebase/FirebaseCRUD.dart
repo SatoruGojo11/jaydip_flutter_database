@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:jaydip_flutter_database/database/Firebase/HomeScreen.dart';
 import 'package:jaydip_flutter_database/main.dart';
 
 class FirebaseCrudApp extends StatefulWidget {
@@ -10,9 +11,9 @@ class FirebaseCrudApp extends StatefulWidget {
 }
 
 class _FirebaseCrudAppState extends State<FirebaseCrudApp> {
-  var id = TextEditingController();
-  var name = TextEditingController();
-  var age = TextEditingController();
+  var idctrl = TextEditingController();
+  var namectrl = TextEditingController();
+  var agectrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,69 +25,39 @@ class _FirebaseCrudAppState extends State<FirebaseCrudApp> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
-              controller: id,
+              controller: idctrl,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(labelText: 'Id'),
             ),
             SizedBox(height: 10),
             TextField(
-              controller: name,
+              controller: namectrl,
               decoration: InputDecoration(labelText: 'Name'),
             ),
             SizedBox(height: 10),
             TextField(
-              controller: age,
+              controller: agectrl,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(labelText: 'Age'),
             ),
             SizedBox(height: 20),
-            ButtonBar(
-              alignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    addData();
-                    setState(() {
-                      id.clear();
-                      name.clear();
-                      age.clear();
-                    });
-                  },
-                  child: Text('Add'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    readData();
-                    setState(() {
-                      id.clear();
-                      name.clear();
-                      age.clear();
-                    });
-                  },
-                  child: Text('Read'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    updateData();
-                    setState(() {
-                      id.clear();
-                      name.clear();
-                      age.clear();
-                    });
-                  },
-                  child: Text('Update'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    deleteData();
-                    setState(() {
-                      id.clear();
-                      name.clear();
-                      age.clear();
-                    });
-                  },
-                  child: Text('Delete'),
-                ),
-              ],
-            )
+            ElevatedButton(
+              onPressed: () {
+                addData();
+                Map<String, dynamic> data = {
+                  'Id': idctrl.text,
+                  'Name': namectrl.text,
+                  'Age': agectrl.text,
+                };
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomeScreendata(data),
+                  ),
+                );
+              },
+              child: Text('Add'),
+            ),
           ],
         ),
       ),
@@ -95,12 +66,12 @@ class _FirebaseCrudAppState extends State<FirebaseCrudApp> {
 
   addData() {
     DocumentReference reference =
-        FirebaseFirestore.instance.collection('Students').doc(id.text);
+        FirebaseFirestore.instance.collection('Students').doc(idctrl.text);
 
     Map<String, dynamic> data = {
-      'Id': id.text,
-      'Name': name.text,
-      'Age': age.text,
+      'Id': idctrl.text,
+      'Name': namectrl.text,
+      'Age': agectrl.text,
     };
 
     reference.set(data).whenComplete(() => print('Add Successful'));
@@ -108,7 +79,7 @@ class _FirebaseCrudAppState extends State<FirebaseCrudApp> {
 
   readData() {
     DocumentReference reference =
-        FirebaseFirestore.instance.collection('Students').doc(id.text);
+        FirebaseFirestore.instance.collection('Students').doc(idctrl.text);
 
     reference.get().then((value) {
       print(value.get('Id'));
@@ -119,12 +90,12 @@ class _FirebaseCrudAppState extends State<FirebaseCrudApp> {
 
   updateData() {
     DocumentReference reference =
-        FirebaseFirestore.instance.collection('Students').doc(id.text);
+        FirebaseFirestore.instance.collection('Students').doc(idctrl.text);
 
     Map<String, dynamic> data = {
-      'Id': id.text,
-      'Name': name.text,
-      'Age': age.text,
+      'Id': idctrl.text,
+      'Name': namectrl.text,
+      'Age': agectrl.text,
     };
 
     reference.update(data).whenComplete(() => print('Updated Successful'));
@@ -132,7 +103,7 @@ class _FirebaseCrudAppState extends State<FirebaseCrudApp> {
 
   deleteData() {
     DocumentReference reference =
-        FirebaseFirestore.instance.collection('Students').doc(id.text);
+        FirebaseFirestore.instance.collection('Students').doc(idctrl.text);
 
     reference.delete().whenComplete(() => print('Deleted Successful'));
   }

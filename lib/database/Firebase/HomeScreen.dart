@@ -1,36 +1,53 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:jaydip_flutter_database/main.dart';
 
-class HomeScreen extends StatefulWidget {
-  var _email, _pwd;
+import '../../main.dart';
 
-  HomeScreen(this._email, this._pwd);
+class HomeScreendata extends StatefulWidget {
+  final Map show;
+
+  HomeScreendata(this.show);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreendata> createState() => _HomeScreendataState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreendataState extends State<HomeScreendata> {
+  List ids = [];
+  List<QueryDocumentSnapshot<Map<String, dynamic>>>? data;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getdata();
+  }
+
+  Future<void> getdata() async {
+    data = await FirebaseFirestore.instance
+        .collection('Students')
+        .get()
+        .then((value) => value.docs);
+
+    for (var element in data!) {
+      ids.add(element.id);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appbar('Home Screen', Colors.black87),
       body: Center(
-        child: Column(
-          children: [
-            Text(
-              'Home Screen',
-              style: TextStyle(fontSize: 30),
-            ),
-            Text(
-              '${widget._email.toString()}',
-              style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              '${widget._pwd.toString()}',
-              style: TextStyle(fontSize: 20),
-            ),
-          ],
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text('Name :- ${widget.show['Name']}'),
+              leading: Text('${widget.show['Id']}'),
+              subtitle: Text('Age :- ${widget.show['Age']}'),
+            );
+          },
+          // itemCount: widget.show.length,
         ),
       ),
     );

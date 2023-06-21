@@ -70,12 +70,13 @@ class _EmailpassverifyState extends State<Emailpassverify> {
                 );
               }
               setState(() {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomeScreen(_email.text, _pwd.text),
-                  ),
-                );
+                // Navigator.pushReplacement(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => HomeScreen(),
+                //   ),
+                // );
+                //Whenever We use these File than First of all we make the Constructor of email and pwd in the HomeScreen File
               });
             },
             child: Text('SIGN UP'),

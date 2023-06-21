@@ -1,21 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'DatabaseTasks/Sqlite/sqlitelogin.dart';
+import 'database/Firebase/FirebaseCRUD.dart';
 
 void main() async {
-  //This code is only for Hive database Use
-  /*WidgetsFlutterBinding.ensureInitialized();
-  Directory directory = await getApplicationDocumentsDirectory();
-  Hive.init(directory.path);
-  await Hive.openBox<String>('Students');*/
-  //This code is only for Firebase database Use
-  /*WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();*/
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreensqlite(),
+      home: FirebaseCrudApp(),
       /*theme: ThemeData(
         scaffoldBackgroundColor: Colors.black87,
         appBarTheme: AppBarTheme(
