@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'database/Firebase/FirebaseCRUD.dart';
+import 'Task/LoginScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -9,7 +9,7 @@ void main() async {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: FirebaseCrudApp(),
+      home: LoginScreen(),
       /*theme: ThemeData(
         scaffoldBackgroundColor: Colors.black87,
         appBarTheme: AppBarTheme(
