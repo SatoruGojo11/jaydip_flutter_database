@@ -1,9 +1,12 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+
+import 'MainScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -22,16 +25,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
   ImagePicker imagePicker = ImagePicker();
   Reference reference = FirebaseStorage.instance.ref();
-  String? galleryimg, imageurl;
+  String? imageurl;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white38,
+      backgroundColor: Colors.teal,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Login Screen',
+          'Register Screen',
           style: TextStyle(
             color: Colors.yellow,
             fontSize: 25,
@@ -183,12 +186,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
-                      onTapOutside: (event) => Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginScreen(),
-                        ),
-                      ),
                       controller: name,
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(
@@ -212,7 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: email,
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(
-                            RegExp(r'^[0-9A-Za-z@._]+$')),
+                            RegExp(r'^[0-9a-z@._]+$')),
                       ],
                       cursorColor: Colors.white,
                       style: TextStyle(color: Colors.black, fontSize: 20),
@@ -277,12 +274,53 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Save Data'),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.brown[900]),
+                  onPressed: () {
+                    if (_data.currentState!.validate() &&
+                        imageurl!.isNotEmpty) {
+                      addData();
+                      showsnkreg(context);
+                    } else {
+                      showsnkimg(context);
+                    }
+                    setState(() {});
+                    // name.clear();
+                    // email.clear();
+                    // age.clear();
+                    // phoneno.clear();
+                  },
+                  child: Text(
+                    'Save Data',
+                    style: TextStyle(
+                        color: Colors.amber,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Show Data'),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.brown[900]),
+                  onPressed: () {
+                    if (imageurl != null) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MainScreen(phoneno.text),
+                        ),
+                      );
+                    } else {
+                      Text('Please Select Profile Photo...');
+                    }
+                  },
+                  child: Text(
+                    'Show Data',
+                    style: TextStyle(
+                      color: Colors.amber,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -341,16 +379,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  image() async {
-    var data = {
-      imageurl == null
-          ? Icon(Icons.account_circle, size: 130, color: Colors.orange)
-          : Image.network(imageurl!)
-    };
-    setState(() {});
-    return await data;
-  }
-
   textfielddecor(label, hint) {
     var decoration = InputDecoration(
       filled: true,
@@ -380,5 +408,43 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     return decoration;
+  }
+
+  showsnkreg(context) {
+    var snk = SnackBar(
+      content: Text('Registeration Successful..'),
+      backgroundColor: Colors.green,
+      behavior: SnackBarBehavior.floating,
+      dismissDirection: DismissDirection.horizontal,
+    );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snk);
+  }
+
+  showsnkimg(context) {
+    var snk = SnackBar(
+      content: Text('Profile Photo Required'),
+      backgroundColor: Colors.red,
+      behavior: SnackBarBehavior.floating,
+      dismissDirection: DismissDirection.horizontal,
+    );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snk);
+  }
+
+  addData() {
+    DocumentReference reference =
+        FirebaseFirestore.instance.collection('Task').doc(phoneno.text);
+
+    Map<String, dynamic> data = {
+      'Name': name.text,
+      'Email-id': email.text,
+      'Age': age.text,
+      'Phone': phoneno.text,
+    };
+
+    reference.set(data).whenComplete(() => print('Save Data Successfully'));
   }
 }
