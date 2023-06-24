@@ -218,7 +218,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Please Enter Your Email id';
+                          if (email.toString() != '@' ) {
+                            return 'Please Enter Right Gmail id';
+                          }
+                          else
+                          {
+                          return 'Please Enter Your Email id';}
                         } else {
                           return null;
                         }
@@ -238,7 +243,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Please Enter Your Age';
+                            return 'Please Enter Your Age';
                         } else {
                           return null;
                         }
@@ -259,7 +264,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       keyboardType: TextInputType.phone,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Please Enter Your Phone No.';
+                          if (phoneno.text.length != 10) {
+                            return 'Please Enter 10 Digit Phone No.';
+                          }
+                          else
+                            {
+                              return 'Please Enter Your Phone No.';
+                            }
                         } else {
                           return null;
                         }

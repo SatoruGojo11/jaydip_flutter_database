@@ -36,15 +36,15 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  getData() {
-    DocumentReference reference =
-        FirebaseFirestore.instance.collection('Task').doc(widget.phoneno.text);
-
-    reference.get().then((value) => {
-          name = value.get('Name'),
-          emailid = value.get('Email-id'),
-          age = value.get('Age'),
-          phno = value.get('Name'),
-        });
-  }
+  // getData() {
+  //   DocumentReference reference =
+  //       FirebaseFirestore.instance.collection('Task').doc(widget.phoneno.text);
+  //
+  //   reference.get().then((value) => {
+  //         name = value.get('Name'),
+  //         emailid = value.get('Email-id'),
+  //         age = value.get('Age'),
+  //         phno = value.get('Name'),
+  //       });
+  // }
 }
