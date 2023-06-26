@@ -82,9 +82,19 @@ class _AdminDataState extends State<AdminData> {
                     ),
                   ),
                   onTap: () {
+                    // var Name = alldata[index].get('Name');
+                    // var Email = alldata[index].get('Name');
+                    // var Age = alldata[index].get('Name');
+                    // var Phone = alldata[index].get('Name');
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => UserData()),
+                      MaterialPageRoute(
+                          builder: (context) => UserData(
+                                name: '${alldata.first.get('Name')}',
+                                email: '${alldata.first.get('Email-id')}',
+                                age: '${alldata.first.get('Age')}',
+                                phno: '${alldata.first.get('Phone')}',
+                              )),
                     );
                   },
                 );

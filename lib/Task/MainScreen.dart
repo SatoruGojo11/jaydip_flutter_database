@@ -66,107 +66,113 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
       backgroundColor: Colors.teal,
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: ListTile(
-              tileColor: Colors.amber,
-              onLongPress: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        backgroundColor: Colors.amber,
-                        title: Text(
-                          'Delete',
-                          style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.brown[900],
-                              fontWeight: FontWeight.bold),
-                        ),
-                        content: Text(
-                          'Are You sure??',
-                          style: TextStyle(
-                              fontSize: 25,
-                              color: Colors.brown[900],
-                              fontWeight: FontWeight.bold),
-                        ),
-                        actions: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop(context);
-                                  },
-                                  child: Text(
-                                    'No',
-                                    style: TextStyle(
-                                        fontSize: 25,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: TextButton(
-                                  onPressed: () {
-                                    deleteData();
-                                    showsnk('Data Deleted', Colors.red);
-                                    Navigator.of(context).pop(context);
-                                    setState(() {});
-                                  },
-                                  child: Text(
-                                    'Yes',
-                                    style: TextStyle(
-                                        fontSize: 25,
-                                        color: Colors.green,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                            ],
+      body: ListView.builder(
+        itemCount: 1,
+        itemBuilder: (context, index) {
+          try {
+            return Padding(
+              padding: const EdgeInsets.all(10),
+              child: ListTile(
+                tileColor: Colors.amber,
+                onLongPress: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          backgroundColor: Colors.amber,
+                          title: Text(
+                            'Delete',
+                            style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.brown[900],
+                                fontWeight: FontWeight.bold),
                           ),
-                        ],
-                      );
-                    });
-                // setState(() {});
-              },
-              title: Text('Name :-  ${main!.get("Name")}'),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Email id :- ${main!.get('Email-id')}'),
-                  Text('Age :- ${main!.get('Age')}'),
-                  Text('Phone No. :- ${main!.get('Phone')}'),
-                ],
-              ),
-              trailing: IconButton(
-                  onPressed: () => updatedata(), icon: Icon(Icons.edit)),
-              leading: CircleAvatar(
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        image: NetworkImage('${main!.get('Image')}'),
-                        fit: BoxFit.cover),
+                          content: Text(
+                            'Are You sure??',
+                            style: TextStyle(
+                                fontSize: 25,
+                                color: Colors.brown[900],
+                                fontWeight: FontWeight.bold),
+                          ),
+                          actions: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop(context);
+                                    },
+                                    child: Text(
+                                      'No',
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: TextButton(
+                                    onPressed: () {
+                                      deleteData();
+                                      showsnk('Data Deleted', Colors.red);
+                                      Navigator.of(context).pop(context);
+                                      setState(() {});
+                                    },
+                                    child: Text(
+                                      'Yes',
+                                      style: TextStyle(
+                                          fontSize: 25,
+                                          color: Colors.green,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      });
+                  // setState(() {});
+                },
+                title: Text('Name :-  ${main!.get("Name")}'),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Email id :- ${main!.get('Email-id')}'),
+                    Text('Age :- ${main!.get('Age')}'),
+                    Text('Phone No. :- ${main!.get('Phone')}'),
+                  ],
+                ),
+                trailing: IconButton(
+                    onPressed: () => updatedata(), icon: Icon(Icons.edit)),
+                leading: CircleAvatar(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          image: NetworkImage('${main!.get('Image')}'),
+                          fit: BoxFit.cover),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-        ],
+            );
+          } catch (e) {
+            print(e);
+            return CircularProgressIndicator();
+          }
+        },
       ),
     );
   }
 
   deleteData() async {
-    var docimg = await FirebaseStorage.instance
+    Reference docimg = await FirebaseStorage.instance
         .ref()
         .child('Task')
         .child('${main!.get('Image')}');
