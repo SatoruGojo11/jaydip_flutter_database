@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:jaydip_flutter_database/Task/AdminPage.dart';
 
 import 'MainScreen.dart';
 
@@ -218,12 +219,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          if (email.toString() != '@' ) {
+                          if (email.toString() != '@') {
                             return 'Please Enter Right Gmail id';
+                          } else {
+                            return 'Please Enter Your Email id';
                           }
-                          else
-                          {
-                          return 'Please Enter Your Email id';}
                         } else {
                           return null;
                         }
@@ -243,7 +243,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value!.isEmpty) {
-                            return 'Please Enter Your Age';
+                          return 'Please Enter Your Age';
                         } else {
                           return null;
                         }
@@ -266,11 +266,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         if (value!.isEmpty) {
                           if (phoneno.text.length != 10) {
                             return 'Please Enter 10 Digit Phone No.';
+                          } else {
+                            return 'Please Enter Your Phone No.';
                           }
-                          else
-                            {
-                              return 'Please Enter Your Phone No.';
-                            }
                         } else {
                           return null;
                         }
@@ -281,6 +279,27 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             SizedBox(height: 20),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AdminPage(),
+                  ),
+                );
+              },
+              child: Text(
+                'Are you admin??',
+                style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.amber,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline,
+                    decorationColor: Colors.amber,
+                    decorationStyle: TextDecorationStyle.wavy),
+              ),
+            ),
+            SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -295,11 +314,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     } else {
                       showsnkimg(context);
                     }
-                    setState(() {});
+                    // imageurl = null;
                     // name.clear();
                     // email.clear();
                     // age.clear();
                     // phoneno.clear();
+                    setState(() {});
                   },
                   child: Text(
                     'Save Data',
@@ -317,12 +337,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => MainScreen(),
+                          builder: (context) => MainScreen(phoneno.text),
                         ),
                       );
-                    } else {
-                      Text('Please Select Profile Photo...');
                     }
+                    ;
                   },
                   child: Text(
                     'Show Data',
@@ -351,9 +370,8 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     imageurl = await imageId.getDownloadURL();
-    setState(() {
-      Navigator.pop(context);
-    });
+    setState(() {});
+    Navigator.of(context).pop(context);
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -376,9 +394,9 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     imageurl = await imageId.getDownloadURL();
-    setState(() {
-      Navigator.pop(context);
-    });
+    setState(() {});
+    Navigator.of(context).pop(context);
+
     await ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.green,
@@ -450,6 +468,7 @@ class _LoginScreenState extends State<LoginScreen> {
         FirebaseFirestore.instance.collection('Task').doc(phoneno.text);
 
     Map<String, dynamic> data = {
+      'Image': imageurl,
       'Name': name.text,
       'Email-id': email.text,
       'Age': age.text,

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:jaydip_flutter_database/Task/SplashScreen.dart';
 
 import 'Task/LoginScreen.dart';
 
@@ -9,7 +10,7 @@ void main() async {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: SplashScreen(),
       /*theme: ThemeData(
         scaffoldBackgroundColor: Colors.black87,
         appBarTheme: AppBarTheme(
