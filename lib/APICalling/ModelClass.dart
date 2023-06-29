@@ -43,8 +43,7 @@ class UsersModel {
       password,
       firstname,
       lastname,
-      phone;
-  final double lat, long;
+      phone,lat, long;
 
   UsersModel({
     required this.id,
@@ -63,37 +62,16 @@ class UsersModel {
     required this.long,
   });
 
-  /* Aa Api no data 6e
-  Ane model class         AAma joto kai bhul 6e??
-   List a = [
-  {
-    "address": {
-      "geolocation": {"lat": "-37.3159", "long": "81.1496"},
-      "city": "kilcoole",
-      "street": "new road",
-      "number": 7682,
-      "zipcode": "12926-3874"
-    },
-    "id": 1,
-    "email": "john@gmail.com",
-    "username": "johnd",
-    "password": "m38rmF$",
-    "name": {"firstname": "john", "lastname": "doe"},
-    "phone": "1-570-236-7033",
-    "__v": 0
-  },
-];*/
-
   factory UsersModel.fromJson(Map jsonData) {
     print('Model');
     Map address = jsonData['address'];
-    Map geolocation = jsonData['geolocation'];
+    Map geolocation = address['geolocation'];
     Map name = jsonData['name'];
     print('M1');
     var data = UsersModel(
-      id: int.parse(jsonData['id'] ?? 0),
-      vp: int.parse(jsonData['__v'] ?? 0),
-      number: int.parse('${address['number'] ?? 0}'),
+      id: jsonData['id'] ?? 0,
+      vp: jsonData['__v'] ?? 0,
+      number: address['number'] ?? 0,
       city: address['city'] ?? 'No data',
       street: address['street'] ?? 'No data',
       zipcode: address['zipcode'] ?? 'No data',
@@ -103,8 +81,8 @@ class UsersModel {
       firstname: name['firstname'] ?? 'No data',
       lastname: name['lastname'] ?? 'No data',
       phone: jsonData['phone'] ?? 'No data',
-      lat: double.parse('${geolocation['lat'] ?? 0.0}'),
-      long: double.parse('${geolocation['long'] ?? 0.0}'),
+      lat: geolocation['lat'] ?? 'No data',
+      long: geolocation['long'] ?? 'No data',
     );
     print('ML');
     return data;

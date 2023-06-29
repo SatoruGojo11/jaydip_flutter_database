@@ -28,7 +28,7 @@ class ProductServices {
 class UserServices {
   Future<List> getData() async {
     var users = await get(Uri.https('fakestoreapi.com', 'users'));
-
+    print(users.statusCode);
     if (users.statusCode == 200) {
       print('Services');
       List<dynamic> body = jsonDecode(users.body);
