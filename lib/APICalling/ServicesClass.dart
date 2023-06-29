@@ -33,21 +33,19 @@ class UserServices {
       print('Services');
       List<dynamic> body = jsonDecode(users.body);
       print('Service 1');
-
-      //
-      List dataList = [];
-
-      body.forEach((element) {
-        var temp = UsersModel.fromJson(jsonData: element);
-        dataList.add(temp);
-        print(dataList);
-      });
-      // List<UsersModel> dataList = body.map((e) {
-      //   print('Variable making');
-      //   var temp = UsersModel.fromJson(jsonData: e);
-      //   print('Variable Completed...');
-      //   return temp;
-      // }).toList();
+      // List dataList = [];
+      // print(dataList);
+      // body.forEach((element) {
+      //   var temp = UsersModel.fromJson(jsonData: element);
+      //   dataList.add(temp);
+      //   print(dataList);
+      // });
+      List<UsersModel> dataList = body.map((e) {
+        print('Variable making');
+        var temp = UsersModel.fromJson(e);
+        print('Variable Completed...');
+        return temp;
+      }).toList();
       print('Service 2');
       print(dataList);
       return dataList;

@@ -84,27 +84,27 @@ class UsersModel {
   },
 ];*/
 
-  factory UsersModel.fromJson({required Map jsonData}) {
+  factory UsersModel.fromJson(Map jsonData) {
     print('Model');
     Map address = jsonData['address'];
     Map geolocation = jsonData['geolocation'];
     Map name = jsonData['name'];
-
+    print('M1');
     var data = UsersModel(
-      id: int.parse(jsonData['id']),
-      vp: int.parse(jsonData['__v']),
-      number: int.parse('${address['number']}'),
-      city: address['city'],
-      street: address['street'], // Nooo😅
-      zipcode: address['zipcode'],
-      email: jsonData['email'] as String,
-      username: jsonData['username'] as String,
-      password: jsonData['password'] as String,
-      firstname: name['firstname'] as String,
-      lastname: name['lastname'] as String,
-      phone: jsonData['phone'] as String,
-      lat: double.parse('${geolocation['lat']}'),
-      long: double.parse('${geolocation['long']}'),
+      id: int.parse(jsonData['id'] ?? 0),
+      vp: int.parse(jsonData['__v'] ?? 0),
+      number: int.parse('${address['number'] ?? 0}'),
+      city: address['city'] ?? 'No data',
+      street: address['street'] ?? 'No data',
+      zipcode: address['zipcode'] ?? 'No data',
+      email: jsonData['email'] ?? 'No data',
+      username: jsonData['username'] ?? 'No data',
+      password: jsonData['password'] ?? 'No data',
+      firstname: name['firstname'] ?? 'No data',
+      lastname: name['lastname'] ?? 'No data',
+      phone: jsonData['phone'] ?? 'No data',
+      lat: double.parse('${geolocation['lat'] ?? 0.0}'),
+      long: double.parse('${geolocation['long'] ?? 0.0}'),
     );
     print('ML');
     return data;

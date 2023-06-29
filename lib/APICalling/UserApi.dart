@@ -12,17 +12,11 @@ class UserApi extends StatefulWidget {
 class _UserApiState extends State<UserApi> {
   UserServices services = UserServices();
 
-  //Maro code joi lyo jarak
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Getting Data'),
-        // actions: [
-        //   IconButton(
-        //       onPressed: getData(), icon: Icon(Icons.refresh_outlined))
-        // ],
       ),
       body: Center(
         child: FutureBuilder(
