@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jaydip_flutter_database/APICalling/ServicesClass.dart';
+
 import 'ModelClass.dart';
+import 'ServicesClass.dart';
 
 class UserApi extends StatefulWidget {
   const UserApi({super.key});

@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'APICalling/UserApi.dart';
+
+import 'APICalling/GetData/UserGetApi.dart';
+import 'APICalling/PostData/AlbumsApi.dart';
+import 'APICalling/PostData/ProductsPostApi.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -8,7 +11,7 @@ void main() async {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: UserApi(),
+      home: ProductsPostApi(),
       /*theme: ThemeData(
         scaffoldBackgroundColor: Colors.black87,
         appBarTheme: AppBarTheme(

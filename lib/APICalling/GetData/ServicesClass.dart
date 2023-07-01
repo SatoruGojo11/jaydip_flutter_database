@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart';
-import 'package:jaydip_flutter_database/APICalling/ModelClass.dart';
+import 'package:jaydip_flutter_database/APICalling/GetData/ModelClass.dart';
 
 class ProductServices {
   static Future<List<ProductModel>> getData() async {
@@ -30,24 +30,11 @@ class UserServices {
     var users = await get(Uri.https('fakestoreapi.com', 'users'));
     print(users.statusCode);
     if (users.statusCode == 200) {
-      print('Services');
       List<dynamic> body = jsonDecode(users.body);
-      print('Service 1');
-      // List dataList = [];
-      // print(dataList);
-      // body.forEach((element) {
-      //   var temp = UsersModel.fromJson(jsonData: element);
-      //   dataList.add(temp);
-      //   print(dataList);
-      // });
       List<UsersModel> dataList = body.map((e) {
-        print('Variable making');
         var temp = UsersModel.fromJson(e);
-        print('Variable Completed...');
         return temp;
       }).toList();
-      print('Service 2');
-      print(dataList);
       return dataList;
     } else
       throw Exception("Can't get Data");
